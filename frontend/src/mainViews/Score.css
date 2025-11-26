@@ -1,0 +1,7 @@
+.main-score-container{
+    width: 100%;
+    display: flex;
+    flex-Direction: column;
+    align-Items: center;
+    box-sizing: border-box;
+}

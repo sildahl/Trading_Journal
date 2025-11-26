@@ -1,0 +1,56 @@
+.main-lot-container{
+    box-sizing: border-box;
+    width: 30%;
+    padding: 10px;
+    height: fit-content;
+    border-radius: 10px;
+    border: 1px solid lightgray;
+    margin-bottom: 20px;
+}
+
+.span-line{
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+h5{
+    margin: 0px;
+    margin-right: 20px;
+}
+
+.toggle-switch2 {
+  width: 50px;
+  height: 26px;
+  background-color: #696161;
+  border-radius: 30px;
+  position: absolute;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  right: 0px;
+}
+
+.switch-handle {
+  width: 22px;
+  height: 22px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s ease;
+}
+
+.toggle-switch2.on .switch-handle {
+  transform: translateX(24px);
+}
+
+.toggle-selected{
+    font-weight: bold;
+}
+
+.toggle-not-selected{
+    color: gray;
+}

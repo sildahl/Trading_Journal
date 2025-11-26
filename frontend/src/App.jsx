@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-      <div style={{"width": "100%", "display": "flex", "flexDirection": "column", "alignItems": "center", "box-sizing": "border-box"}}>
+      <div style={{"width": "100%", "display": "flex", "flexDirection": "column", "alignItems": "center", "boxSizing": "border-box"}}>
         <Navbar/>
 
         <Routes>
