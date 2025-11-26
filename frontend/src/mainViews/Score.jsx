@@ -1,5 +1,5 @@
 import React from 'react'
-import High_checklist from '../components/high_checklist'
+import High_checklist from '../components/High_checklist'
 
 function Score() {
   return (
