@@ -1,0 +1,44 @@
+.item-container
+{
+  box-sizing: border-box;
+    position: relative;
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.title-container{
+    position: relative;
+    display: flex;
+    width: 100%;
+}
+
+.toggle-switch {
+  width: 50px;
+  height: 26px;
+  background-color: #696161;
+  border-radius: 30px;
+  position: absolute;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  right: 0px;
+}
+
+.toggle-switch.on {
+  background-color: #4caf50;
+}
+
+.switch-handle {
+  width: 22px;
+  height: 22px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s ease;
+}
+
+.toggle-switch.on .switch-handle {
+  transform: translateX(24px);
+}
