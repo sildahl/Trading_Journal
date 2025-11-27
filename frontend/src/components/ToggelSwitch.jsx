@@ -4,9 +4,9 @@ import './ToggelSwitch.css'
 function ToggelSwitch({Title, switchState, setSwitchState}) {
   return (
     <div className='item-container'>
-        <label>
+        <h6>
             {Title}
-        </label>
+        </h6>
         <div
         className={`toggle-switch ${switchState ? "on" : ""}`}
         onClick={() => setSwitchState(!switchState)}

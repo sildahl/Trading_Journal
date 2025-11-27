@@ -1,15 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './High_checklist.css'
 import ToggleSwitch from './ToggelSwitch'
 
-function High_checklist({Title}) {
+function High_checklist({Title, setScore}) {
     const [toggles, setToggles] = useState({
         trend: { active: false, score: 10 },
-        ema: { active: false, score: 10},
         aoi: { active: false, score: 10 },
+        ema: { active: false, score: 5},
         psych: { active: false, score: 5 },
+        rejection: { active: false, score: 10 },
+        crejection: { active: false, score: 10 },
         hs: { active: false, score: 10 }
     });
+
+    useEffect(() => {
+        const newScore = calculateScore();
+        setScore(newScore);
+    }, [toggles]);
 
     function updateToggle(key, newActiveState) {
         setToggles(prev => ({
@@ -22,28 +29,31 @@ function High_checklist({Title}) {
     }
 
     function calculateScore() {
-        return Object.values(toggles)
+        const newScore = Object.values(toggles)
         .filter(t => t.active)
         .reduce((sum, t) => sum + t.score, 0);
+        return newScore;
     }
 
   return (
     <div className='main-container'>
         <span className='title-container'>
-            <h3 style={{"marginTop": "5px"}}>
+            <h2 style={{"marginTop": "5px"}}>
                 {Title}
-            </h3 >
+            </h2 >
             <h4 style={{"marginTop": "8px", "position": "absolute", "right": "0px"}}>
                 Score: {calculateScore()}%
             </h4>
         </span>
         
         <ToggleSwitch Title={"Trend"} switchState={toggles.trend.active} setSwitchState={(value) => updateToggle("trend", value)}/>
+        <ToggleSwitch Title={"At AOI / Rejected"} switchState={toggles.aoi.active} setSwitchState={(value) => updateToggle("aoi", value)}/>
         <ToggleSwitch Title={"EMA touch"} switchState={toggles.ema.active} setSwitchState={(value) => updateToggle("ema", value)}/>
-        <ToggleSwitch Title={"AOI rejection"} switchState={toggles.aoi.active} setSwitchState={(value) => updateToggle("aoi", value)}/>
         <ToggleSwitch Title={"Psychological level"} switchState={toggles.psych.active} setSwitchState={(value) => updateToggle("psych", value)}/>
-        <ToggleSwitch Title={"Head and shoulders/Double bottom"} switchState={toggles.hs.active} setSwitchState={(value) => updateToggle("hs", value)}/>
-            
+        <ToggleSwitch Title={"Rejection from previous structure"} switchState={toggles.rejection.active} setSwitchState={(value) => updateToggle("rejection", value)}/>
+        <ToggleSwitch Title={"Candlestick rejection from AOI"} switchState={toggles.crejection.active} setSwitchState={(value) => updateToggle("crejection", value)}/>
+        <ToggleSwitch Title={"Break and retest / Head and shoulders"} switchState={toggles.hs.active} setSwitchState={(value) => updateToggle("hs", value)}/>
+        
     </div>
   )
 }

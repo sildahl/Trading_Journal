@@ -1,11 +1,13 @@
 .main-container{
     box-sizing: border-box;
-    width: 30%;
+    width: 50%;
     padding: 10px;
     height: fit-content;
     border-radius: 10px;
-    border: 1px solid lightgray;
-    margin-bottom: 20px;
+    border: 1px solid rgba(85, 85, 85, 0.4);
+    background-color:  rgba(107, 120, 133, 0.2);
+    margin-bottom: 30px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 
