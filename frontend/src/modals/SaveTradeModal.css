@@ -1,0 +1,19 @@
+.main-modal .modal-content {
+  background-color: rgb(41, 41, 41) !important;
+  color: white; /* valgfrit */
+}
+
+.main-modal .modal-header,
+.main-modal .modal-footer {
+  background-color: rgb(41, 41, 41) !important;
+  border: none;
+}
+
+.main-modal .modal-body {
+  background-color: rgb(41, 41, 41) !important;
+}
+
+.main-modal .btn-close {
+  filter: invert(1);       /* gør den hvid */
+  opacity: 1;              /* gør den helt synlig */
+}

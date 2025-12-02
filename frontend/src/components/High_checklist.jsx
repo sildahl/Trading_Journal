@@ -46,13 +46,13 @@ function High_checklist({Title, setScore}) {
             </h4>
         </span>
         
-        <ToggleSwitch Title={"Trend"} switchState={toggles.trend.active} setSwitchState={(value) => updateToggle("trend", value)}/>
-        <ToggleSwitch Title={"At AOI / Rejected"} switchState={toggles.aoi.active} setSwitchState={(value) => updateToggle("aoi", value)}/>
-        <ToggleSwitch Title={"EMA touch"} switchState={toggles.ema.active} setSwitchState={(value) => updateToggle("ema", value)}/>
-        <ToggleSwitch Title={"Psychological level"} switchState={toggles.psych.active} setSwitchState={(value) => updateToggle("psych", value)}/>
-        <ToggleSwitch Title={"Rejection from previous structure"} switchState={toggles.rejection.active} setSwitchState={(value) => updateToggle("rejection", value)}/>
-        <ToggleSwitch Title={"Candlestick rejection from AOI"} switchState={toggles.crejection.active} setSwitchState={(value) => updateToggle("crejection", value)}/>
-        <ToggleSwitch Title={"Break and retest / Head and shoulders"} switchState={toggles.hs.active} setSwitchState={(value) => updateToggle("hs", value)}/>
+        <ToggleSwitch Title={"Trend"} percentage={toggles.trend.score} switchState={toggles.trend.active} setSwitchState={(value) => updateToggle("trend", value)}/>
+        <ToggleSwitch Title={"At AOI / Rejected"} percentage={toggles.aoi.score} switchState={toggles.aoi.active} setSwitchState={(value) => updateToggle("aoi", value)}/>
+        <ToggleSwitch Title={"EMA touch"} percentage={toggles.ema.score} switchState={toggles.ema.active} setSwitchState={(value) => updateToggle("ema", value)}/>
+        <ToggleSwitch Title={"Psychological level"} percentage={toggles.psych.score} switchState={toggles.psych.active} setSwitchState={(value) => updateToggle("psych", value)}/>
+        <ToggleSwitch Title={"Rejection from previous structure"} percentage={toggles.rejection.score} switchState={toggles.rejection.active} setSwitchState={(value) => updateToggle("rejection", value)}/>
+        <ToggleSwitch Title={"Candlestick rejection from AOI"} percentage={toggles.crejection.score} switchState={toggles.crejection.active} setSwitchState={(value) => updateToggle("crejection", value)}/>
+        <ToggleSwitch Title={"Break and retest / Head and shoulders"} percentage={toggles.hs.score} switchState={toggles.hs.active} setSwitchState={(value) => updateToggle("hs", value)}/>
         
     </div>
   )

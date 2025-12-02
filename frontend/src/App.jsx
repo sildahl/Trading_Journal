@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import { Routes, Route, Link } from 'react-router-dom';
 import Score from './mainViews/Score';
 import LotsizeCalc from './mainViews/LotsizeCalc';
+import Dashboard from './mainViews/Dashboard';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Score />} />
           <Route path="/lotsizecalculator" element={<LotsizeCalc />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
         
 

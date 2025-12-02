@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useRef, useEffect } from "react";
 import { Button, FormControl } from "react-bootstrap";
 
-function PairDropdown({selected, setSelected}) {
+function PairDropdown({selected, setSelected, variant}) {
   const [filter, setFilter] = useState("");
   const [show, setShow] = useState(false);
   const dropdownRef = useRef(null);
@@ -50,7 +50,7 @@ function PairDropdown({selected, setSelected}) {
   return (
     <div ref={dropdownRef} style={{ position: "relative", width: "220px" }}>
       <Button
-        variant="secondary"
+        variant={variant}
         onClick={() => setShow(!show)}
         style={{ width: "100%" }}
       >

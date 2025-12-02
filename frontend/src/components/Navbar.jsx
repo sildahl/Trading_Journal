@@ -15,6 +15,9 @@ function Navbar() {
         <Button variant='outline-light' onClick={() => navigate('/lotsizecalculator')}>
           Lot size calculator
         </Button>
+        <Button variant='outline-light' onClick={() => navigate('/dashboard')}>
+          Dashboard
+        </Button>
     </div>
   )
 }

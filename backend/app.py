@@ -4,7 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 from database import Base, engine, SessionLocal
-from models import TradeSetup
+import models
+import datetime
 
 # ==== Setup ====
 app = FastAPI()
@@ -44,30 +45,28 @@ def root():
 
 
 # ---- Upload billede + data ----
-@app.post("/api/upload")
+@app.post("/api/uploadTrade")
 async def upload_image(
-    file: UploadFile = File(...),
-):
-    # Gem billede
-    file_path = os.path.join(UPLOAD_FOLDER, file.filename)
+        image: UploadFile = File(...),
+        pair: str = Form(...),
+        note: str = Form(...),
+        score: int = Form(...),
+        db: Session = Depends(get_db)
+    ):
+
+    dateStr = datetime.datetime.strftime(datetime.datetime.now(), "_%Y_%m_%dT%H_%M_%S.png")
+    filename = pair.replace("/","") + dateStr
+    file_path = os.path.join(UPLOAD_FOLDER, filename)
     with open(file_path, "wb") as f:
-        f.write(await file.read())
+        f.write(await image.read())
 
+    new_trade = models.TradeSetup(score = score, pair = pair, note = note, status = 0, image_before = filename)
+    db.add(new_trade)
+    db.commit()
+    return {"message": "Trade uploaded"}
 
-    return {
-        "message": "Billede uploadet",
-    }
-
-
-# ---- Hent alle billeder ----
-@app.get("/api/images")
-def get_images(db: Session = Depends(get_db)):
-    items = db.query(TradeSetup).all()
-    response = []
-    for item in items:
-        response.append({
-            "id": item.id,
-            "pair": item.pair,
-            "score": item.score,
-        })
-    return response
+@app.get("/api/getTrades")
+async def get_trades(db: Session = Depends(get_db)):
+    active_trades = db.query(models.TradeSetup).filter(models.TradeSetup.status == 0).all()
+    latest_trades = db.query(models.TradeSetup).filter(models.TradeSetup.status != 0).limit(20).all()
+    return {"active_trades": active_trades, "latest_trades": latest_trades}
