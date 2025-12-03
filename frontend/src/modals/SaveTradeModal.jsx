@@ -1,14 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './SaveTradeModal.css'
 import { Button } from 'react-bootstrap'
 import { Modal } from 'react-bootstrap'
 import PairDropdown from '../components/PairDropdown'
 import ImageDropzone from '../components/ImageDropzone'
+import { API_URL } from '../config'
 
-function SaveTradeModal({show, setShow, score}) {
+function SaveTradeModal({show, setShow, score, timeframe_scores}) {
   const [selectedPair, setSelectedPair] = useState("EURUSD")
   const [entryNote, setEntryNote] = useState("")
   const [image, setImage] = useState("")
+  const [bullish, setBullish] = useState(false)
+
+  useEffect(() => {setEntryNote(" ")},[])
 
   const handleClose = () => setShow(false);
 
@@ -19,14 +23,15 @@ function SaveTradeModal({show, setShow, score}) {
     formData.append("pair", selectedPair);
     formData.append("note", entryNote);
     formData.append("score", score);
+    formData.append("bullish", bullish)
+    formData.append("flags", JSON.stringify(timeframe_scores));
 
-    fetch("http://localhost:8000/api/uploadTrade", {
+    fetch(API_URL + "/api/uploadTrade", {
       method: "POST",
       body: formData
     })
     .then((res) => res.json())
     .then((data) => {
-      console.log("Upload success:", data);
       handleClose();
     })
     .catch((err) => {
@@ -51,16 +56,28 @@ function SaveTradeModal({show, setShow, score}) {
                 <PairDropdown selected={selectedPair} setSelected={setSelectedPair} variant={"outline-light"}/>
                 <span style={{"position": "absolute", "right": "20px"}}>
                   <h4 style={ score < 60 ? {"color": "red"} : score < 85 ? {"color": "yellow"} : {"color" : "green"}}>
-                    Confident Score: {score}% 
+                    Confident Score: {score}% test
                   </h4>
                 </span>
             </span>
+
+            <span style={{"justifyContent":"left"}}>
+                <h5>
+                    Direction: 
+                </h5>
+                <div style={{"position":"relative", "marginBottom": "20px", "marginTop": "10px"}}>
+                  <Button variant={bullish ? 'success' : 'secondary'} onClick={() => setBullish(true)} style={{"borderRadius":"0.2em 0 0 0.2em"}}>Long</Button>
+                  <Button variant={!bullish ? 'danger' : 'secondary'} onClick={() => setBullish(false)} style={{"borderRadius":"0 0.2em 0.2em 0"}}>Short</Button>
+                </div>
+            </span>
+
             <span style={{"justifyContent":"left"}}>
                 <h5>
                     Entry notes: 
                 </h5>
                 <textarea onChange={(e) => setEntryNote(e.target.value)} rows={5} style={{"width": "100%", "marginTop": "10px", "marginBottom": "20px"}}/>
             </span>
+
             <span style={{"justifyContent":"left"}}>
                 <h5>
                     Image: 

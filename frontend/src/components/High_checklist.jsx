@@ -1,61 +1,77 @@
-import React, { useEffect, useState } from 'react'
-import './High_checklist.css'
-import ToggleSwitch from './ToggelSwitch'
+import React from 'react';
+import './High_checklist.css';
+import ToggleSwitch from './ToggelSwitch';
+import { FLAGS, SCORES, calculateTotal } from '../helpers/toggleFlags';
 
-function High_checklist({Title, setScore}) {
-    const [toggles, setToggles] = useState({
-        trend: { active: false, score: 10 },
-        aoi: { active: false, score: 10 },
-        ema: { active: false, score: 5},
-        psych: { active: false, score: 5 },
-        rejection: { active: false, score: 10 },
-        crejection: { active: false, score: 10 },
-        hs: { active: false, score: 10 }
-    });
+function High_checklist({ Title, value, onChange }) {
 
-    useEffect(() => {
-        const newScore = calculateScore();
-        setScore(newScore);
-    }, [toggles]);
-
-    function updateToggle(key, newActiveState) {
-        setToggles(prev => ({
-        ...prev,
-        [key]: {
-            ...prev[key],
-            active: newActiveState
-        }
-        }));
-    }
-
-    function calculateScore() {
-        const newScore = Object.values(toggles)
-        .filter(t => t.active)
-        .reduce((sum, t) => sum + t.score, 0);
-        return newScore;
-    }
+  const handleToggle = (flag) => {
+    const newValue = value ^ flag; // XOR = flip bit
+    onChange(newValue);
+  };
 
   return (
     <div className='main-container'>
-        <span className='title-container'>
-            <h2 style={{"marginTop": "5px"}}>
-                {Title}
-            </h2 >
-            <h4 style={{"marginTop": "8px", "position": "absolute", "right": "0px"}}>
-                Score: {calculateScore()}%
-            </h4>
-        </span>
-        
-        <ToggleSwitch Title={"Trend"} percentage={toggles.trend.score} switchState={toggles.trend.active} setSwitchState={(value) => updateToggle("trend", value)}/>
-        <ToggleSwitch Title={"At AOI / Rejected"} percentage={toggles.aoi.score} switchState={toggles.aoi.active} setSwitchState={(value) => updateToggle("aoi", value)}/>
-        <ToggleSwitch Title={"EMA touch"} percentage={toggles.ema.score} switchState={toggles.ema.active} setSwitchState={(value) => updateToggle("ema", value)}/>
-        <ToggleSwitch Title={"Psychological level"} percentage={toggles.psych.score} switchState={toggles.psych.active} setSwitchState={(value) => updateToggle("psych", value)}/>
-        <ToggleSwitch Title={"Rejection from previous structure"} percentage={toggles.rejection.score} switchState={toggles.rejection.active} setSwitchState={(value) => updateToggle("rejection", value)}/>
-        <ToggleSwitch Title={"Candlestick rejection from AOI"} percentage={toggles.crejection.score} switchState={toggles.crejection.active} setSwitchState={(value) => updateToggle("crejection", value)}/>
-        <ToggleSwitch Title={"Break and retest / Head and shoulders"} percentage={toggles.hs.score} switchState={toggles.hs.active} setSwitchState={(value) => updateToggle("hs", value)}/>
-        
+      <span className='title-container'>
+        <h2 style={{ marginTop: "5px" }}>
+          {Title}
+        </h2>
+        <h4 style={{ marginTop: "8px", position: "absolute", right: "0px" }}>
+          Score: {calculateTotal(value)}%
+        </h4>
+      </span>
+
+      <ToggleSwitch 
+        Title="Trend"
+        percentage={SCORES.trend}
+        switchState={!!(value & FLAGS.trend)}
+        setSwitchState={() => handleToggle(FLAGS.trend)}
+      />
+
+      <ToggleSwitch 
+        Title="At AOI / Rejected"
+        percentage={SCORES.aoi}
+        switchState={!!(value & FLAGS.aoi)}
+        setSwitchState={() => handleToggle(FLAGS.aoi)}
+      />
+
+      <ToggleSwitch 
+        Title="EMA touch"
+        percentage={SCORES.ema}
+        switchState={!!(value & FLAGS.ema)}
+        setSwitchState={() => handleToggle(FLAGS.ema)}
+      />
+
+      <ToggleSwitch 
+        Title="Psychological level"
+        percentage={SCORES.psych}
+        switchState={!!(value & FLAGS.psych)}
+        setSwitchState={() => handleToggle(FLAGS.psych)}
+      />
+
+      <ToggleSwitch 
+        Title="Rejection from previous structure"
+        percentage={SCORES.rejection}
+        switchState={!!(value & FLAGS.rejection)}
+        setSwitchState={() => handleToggle(FLAGS.rejection)}
+      />
+
+      <ToggleSwitch 
+        Title="Candlestick rejection from AOI"
+        percentage={SCORES.crejection}
+        switchState={!!(value & FLAGS.crejection)}
+        setSwitchState={() => handleToggle(FLAGS.crejection)}
+      />
+
+      <ToggleSwitch 
+        Title="Break and retest / Head and shoulders"
+        percentage={SCORES.hs}
+        switchState={!!(value & FLAGS.hs)}
+        setSwitchState={() => handleToggle(FLAGS.hs)}
+      />
+
     </div>
-  )
+  );
 }
 
-export default High_checklist
+export default High_checklist;

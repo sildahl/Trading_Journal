@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import './Dashboard.css'
+import { API_URL } from '../config'
 
 function Dashboard() {
     const [trades, setTrades] = useState({active_trades: [], latest_trades: []})
 
     useEffect(() => {
         const initialFetch = async () => {
-            const resp = await fetch("http://localhost:8000/api/getTrades") 
+            const resp = await fetch(API_URL + "/api/getTrades") 
             const data = await resp.json()
             const _trades = {
                 active_trades: data.active_trades,
@@ -14,7 +15,7 @@ function Dashboard() {
             }
             setTrades(_trades)
         } 
-
+        console.log(API_URL)
         initialFetch()
     },[])
   return (
