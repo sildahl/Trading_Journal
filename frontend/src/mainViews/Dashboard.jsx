@@ -16,7 +16,6 @@ function Dashboard() {
             }
             setTrades(_trades)
         } 
-        console.log(API_URL)
         initialFetch()
     },[])
   return (
