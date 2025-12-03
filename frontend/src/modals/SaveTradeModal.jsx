@@ -55,7 +55,7 @@ function SaveTradeModal({show, setShow, score, timeframe_scores}) {
                 </h5>
                 <PairDropdown selected={selectedPair} setSelected={setSelectedPair} variant={"outline-light"}/>
                 <span style={{"position": "absolute", "right": "20px"}}>
-                  <h4 style={ score < 60 ? {"color": "red"} : score < 85 ? {"color": "yellow"} : {"color" : "green"}}>
+                  <h4 style={ score < 60 ? {"color": "salmon"} : score < 85 ? {"color": "yellow"} : {"color" : "green"}}>
                     Confident Score: {score}% test
                   </h4>
                 </span>

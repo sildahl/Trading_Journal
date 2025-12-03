@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import './Dashboard.css'
 import { API_URL } from '../config'
+import DashboardLine from '../components/Dashboard/DashboardLine'
+import DashboardLineDetails from '../components/Dashboard/DashboardLineDetails'
 
 function Dashboard() {
     const [trades, setTrades] = useState({active_trades: [], latest_trades: []})
@@ -19,11 +21,9 @@ function Dashboard() {
         initialFetch()
     },[])
   return (
-    <div>
+    <div style={{"position":"relativ", "width":"100%", "display": "flex", "flexDirection": "column", "alignItems": "center"}}>
       {trades.active_trades.map((item, i)=> {return (
-        <div key={"active_trades_" + i}>
-            {item.pair + " -> " + item.score}
-        </div>
+          <DashboardLine trade={item} />
         )})}
     </div>
   )
