@@ -6,7 +6,6 @@ import DashboardLineDetails from '../components/Dashboard/DashboardLineDetails'
 
 function Dashboard() {
     const [trades, setTrades] = useState({active_trades: [], latest_trades: []})
-
     useEffect(() => {
         const initialFetch = async () => {
             const resp = await fetch(API_URL + "/api/getTrades") 
