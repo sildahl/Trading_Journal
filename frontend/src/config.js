@@ -1,1 +1,1 @@
-export const API_URL = "https://trading-journal-srmt.onrender.com/"
+export const API_URL = "https://trading-journal-srmt.onrender.com"
