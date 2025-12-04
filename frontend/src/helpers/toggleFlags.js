@@ -18,6 +18,16 @@ export const SCORES = {
   hs: 10
 };
 
+export const ENTRY_FLAGS = {
+  engulf: 1,
+  bos: 2,
+};
+
+export const ENTRY_SCORES = {
+  engulf: 5,
+  bos: 5,
+};
+
 // Udregner total score ud fra bitværdi
 export function calculateTotal(binaryValue) {
   let total = 0;
@@ -25,6 +35,18 @@ export function calculateTotal(binaryValue) {
   Object.entries(FLAGS).forEach(([key, flag]) => {
     if (binaryValue & flag) {
       total += SCORES[key];
+    }
+  });
+
+  return total;
+}
+
+export function calculateEntryTotal(binaryValue) {
+  let total = 0;
+
+  Object.entries(ENTRY_FLAGS).forEach(([key, flag]) => {
+    if (binaryValue & flag) {
+      total += ENTRY_SCORES[key];
     }
   });
 

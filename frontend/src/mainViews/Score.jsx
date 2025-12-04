@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import High_checklist from '../components/High_checklist';
+import High_checklist from '../components/Score/High_checklist';
+import Entry_checklist from '../components/Score/Entry_checklist';
 import './Score.css';
-import ScoreSummary from '../components/ScoreSummary';
+import ScoreSummary from '../components/Score/ScoreSummary';
 import { Button } from 'react-bootstrap';
 import SaveTradeModal from '../modals/SaveTradeModal';
-import { calculateTotal } from '../helpers/toggleFlags';
+import { calculateTotal, calculateEntryTotal } from '../helpers/toggleFlags';
+
 
 function Score() {
   const [scores, setScores] = useState({
@@ -29,9 +31,17 @@ function Score() {
   };
 
   const calculateAll = () => {
-    return Object.values(scores)
-      .map(v => calculateTotal(v))
-      .reduce((a, b) => a + b, 0);
+    const keys = Object.keys(scores)
+    let sum = 0;
+    keys.forEach(x => {
+      if(x == "entry"){
+        sum += calculateEntryTotal(scores[x])
+      }
+      else{
+        sum += calculateTotal(scores[x])
+      }
+    })
+    return sum
   };
 
   return (
@@ -39,7 +49,7 @@ function Score() {
       <High_checklist Title="Weekly" value={scores.weekly} onChange={(v) => updateScore("weekly", v)} />
       <High_checklist Title="Daily" value={scores.daily} onChange={(v) => updateScore("daily", v)} />
       <High_checklist Title="4 Hour" value={scores.fourHour} onChange={(v) => updateScore("fourHour", v)} />
-
+      <Entry_checklist value={scores.entry} onChange={(v) => updateScore("entry", v)}/>
       <ScoreSummary scores={scores} />
 
       <Button variant='success' onClick={handleShowModal}>Save trade</Button>

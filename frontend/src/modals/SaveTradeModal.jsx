@@ -6,6 +6,7 @@ import PairDropdown from '../components/PairDropdown'
 import ImageDropzone from '../components/ImageDropzone'
 import { API_URL } from '../config'
 
+
 function SaveTradeModal({show, setShow, score, timeframe_scores}) {
   const [selectedPair, setSelectedPair] = useState("EURUSD")
   const [entryNote, setEntryNote] = useState("")

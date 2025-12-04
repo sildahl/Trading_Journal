@@ -1,8 +1,27 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './ScoreSummary.css'
-import { calculateTotal } from '../helpers/toggleFlags'
+import { calculateTotal, calculateEntryTotal } from '../../helpers/toggleFlags'
 
 function ScoreSummary({scores}) {
+    const [score, setScore] = useState(0)
+
+    useEffect(() => {
+        setScore(calculateAll())
+    },[scores])
+
+    const calculateAll = () => {
+        const keys = Object.keys(scores)
+        let sum = 0;
+        keys.forEach(x => {
+          if(x == "entry"){
+            sum += calculateEntryTotal(scores[x])
+          }
+          else{
+            sum += calculateTotal(scores[x])
+          }
+        })
+        return sum
+      };
 
   return (
     <div className='main-summary-container' style={{"border": "1px solid lightgray"}}>
@@ -26,13 +45,13 @@ function ScoreSummary({scores}) {
             </div>
             <div className='score-summary-item'>
                 <h4>Entry</h4>
-                <h3>{calculateTotal(scores.entry)}%</h3>
+                <h3>{calculateEntryTotal(scores.entry)}%</h3>
             </div>
             
         </div>
-        <div className='score-summary-final-item'>
-                <h4>Confidence Score</h4>
-                <h3>{Object.values(scores).reduce((a, b) => a + calculateTotal(b), 0)}%</h3>
+        <div className='score-summary-final-item' style={ score < 60 ? {"color": "salmon"} : score < 85 ? {"color": "yellow"} : {"color" : "green"}} >
+                <h3>Confidence Score</h3>
+                <h2 >{score}%</h2>
             </div>
     </div>
   )

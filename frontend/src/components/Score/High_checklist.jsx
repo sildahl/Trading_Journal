@@ -1,7 +1,7 @@
 import React from 'react';
 import './High_checklist.css';
-import ToggleSwitch from './ToggelSwitch';
-import { FLAGS, SCORES, calculateTotal } from '../helpers/toggleFlags';
+import ToggleSwitch from '../ToggelSwitch';
+import { FLAGS, SCORES, calculateTotal } from '../../helpers/toggleFlags';
 
 function High_checklist({ Title, value, onChange }) {
 

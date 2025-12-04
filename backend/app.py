@@ -45,3 +45,7 @@ async def upload_image(image: UploadFile = File(...), pair: str = Form(...), not
 @app.get("/api/getTrades")
 async def get_trades(db: Session = Depends(get_db)):
     return await services.get_trades(db)
+
+@app.delete("/api/trades/{trade_id}")
+async def delete_trade(trade_id: int, db: Session = Depends(get_db)):
+    return await services.delete_trade(trade_id, db)

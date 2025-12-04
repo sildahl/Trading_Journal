@@ -9,9 +9,25 @@
     border: 1px solid gray;
     display: flex;
     cursor: pointer;
+    align-items: center;
 }
 
-.trade-item-score{
+/* .trade-item-score{
     position: absolute;
     right: 0px;
+} */
+
+.button-right-container{
+    position: relative;
+    width: 100%;
+    direction: rtl;
+    display: flex;
+    right: 0px;
+    align-items: center;
+}
+
+.icon-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
